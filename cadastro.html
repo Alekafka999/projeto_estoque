@@ -12,20 +12,20 @@
 <h2>Cadastro de Produtos</h2>
 <form action="processar.php" method="post">
        <div>
-        <label for"">Produto</label>
+        <label for="produto">Produto</label>
         <input type="text" name="produto" id="produto" required>
     </div>
     <div>   
-        <label for"">Marca</label>
+        <label for="marca">Marca</label>
         <input type="text" name="marca" id="marca" required>
     </div>
     <div>   
-        <label for"">Quantidade</label>
+        <label for="quantidade">Quantidade</label>
         <input type="number" name="quantidade" id="quantidade" required>
     </div>
     <div>
-        <label for="">Valor</label>
-        <input type="number" name="valor" id="valor" required>
+        <label for="valor">Valor</label>
+        <input type="number" step="0.01" name="valor" id="valor" required>
     </div>
     <input type="submit" value="Cadastrar Produto">
 </form>

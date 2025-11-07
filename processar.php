@@ -35,7 +35,7 @@ $conexao = new PDO("mysql:host=".SERVIDOR.";dbname=".BANCO." charset=utf8", USUA
 
 $conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-$sql = "INSERT INTO db_ estoque (produto,marca,quantidade,valor) VALUES ($produto,$marca,$quantidade,$preco)";
+$sql = "INSERT INTO tb_produtos (produto, marca, quantidade, valor) VALUES (:produto, :marca, :quantidade, :preco)";
 
 $comando = $conexao->prepare($sql);
 $comando->execute();
