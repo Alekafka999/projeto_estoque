@@ -31,14 +31,30 @@ define("USUARIO", "root");
 define("SENHA", "");
 define("BANCO", "db_estoque");
 
-$conexao = new PDO("mysql:host=".SERVIDOR.";dbname=".BANCO." charset=utf8", USUARIO, SENHA);
-
-$conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+try {
+    // note o ponto-e-vírgula antes de charset
+    $conexao = new PDO("mysql:host=".SERVIDOR.";dbname=".BANCO.";charset=utf8", USUARIO, SENHA, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_EMULATE_PREPARES => false,
+        // garante que a conexão use utf8
+        PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+    ]);
+} catch (PDOException $e) {
+    // Mensagem amigável para debug local
+    echo "Erro ao conectar ao banco de dados: " . $e->getMessage();
+    exit;
+}
 
 $sql = "INSERT INTO tb_produtos (produto, marca, quantidade, valor) VALUES (:produto, :marca, :quantidade, :preco)";
 
 $comando = $conexao->prepare($sql);
-$comando->execute();
+
+$comando->execute([
+    ':produto' => $produto,
+    ':marca' => $marca,
+    ':quantidade' => $quantidade,
+    ':preco' => $preco
+]);
 
 echo "Produto cadastrado com sucesso!";
 ?>
